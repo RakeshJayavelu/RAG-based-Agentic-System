@@ -50,7 +50,8 @@ DATABASES = {
         'USER': 'username',   
         'PASSWORD': 'password',
         'HOST': 'host_ip',
-        'PORT': 'host_port',             
+        'PORT': 'host_port',
+    }
 }
 
 MIDDLEWARE = [
