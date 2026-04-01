@@ -38,8 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    # 'api.apps.ApiConfig',
-    'api', # Your newly created app
+    'api', 
 ]
 
 
@@ -47,12 +46,11 @@ INSTALLED_APPS = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ragdb2', # The name of your existing DB
-        'USER': 'rakeshjayavelu',    # e.g., 'postgres' or your specific username
-        'PASSWORD': '',
-        'HOST': 'localhost',             # Or the IP address if it's hosted elsewhere
-        'PORT': '5432',                  # Default Postgres port
-    }
+        'NAME': 'DB_name', 
+        'USER': 'username',   
+        'PASSWORD': 'password',
+        'HOST': 'host_ip',
+        'PORT': 'host_port',             
 }
 
 MIDDLEWARE = [
