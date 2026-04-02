@@ -67,7 +67,7 @@ ollama pull mistral
 ollama serve
 ```
 
-** 7. Data Seeding (Ingest Documents)
+** 7. Data Seeding (Ingest Documents)**
 Before querying the agent, you must populate the vector database with the project dataset.
 
 1.  *Download the Dataset:*  https://www.kaggle.com/datasets/ruchi798/100-llm-papers-to-explore?select=1909.08053.pdf
@@ -84,7 +84,7 @@ Before querying the agent, you must populate the vector database with the projec
     Invoke-RestMethod -Uri http://localhost:8000/api/ingest/ -Method Post -ContentType "application/json" -Body '{"directory_path": "dataset"}'
     ```
 
-### 5. Verify & Chat
+** 8. Verify & Chat **
 To verify the system is live, navigate to the chatbot folder and start a session:
 ```bash
 cd "terminal chatbot"
