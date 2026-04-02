@@ -4,7 +4,7 @@
 # Asynchronous Agentic RAG Architecture
 
 
-## 🚀 Tech Stack
+## Tech Stack
 
 * **Web Framework:** Django / Django REST Framework
 * **Agentic Orchestration:** LangGraph
@@ -16,7 +16,7 @@
 
 ---
 
-## ⚙️ Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have the following installed and running on your system:
 * Python 3.10+
@@ -26,7 +26,7 @@ Before you begin, ensure you have the following installed and running on your sy
 
 ---
 
-## 🛠️ Installation & Setup
+## Installation & Setup
 
 ### 1. Clone the repository and navigate to the directory:**
 ```bash
@@ -94,7 +94,7 @@ python chatbot.py
 
 ---
 
-## 🏃‍♂️ Running the Application with Terminal Chatbot Client
+## Running the Application with Terminal Chatbot Client
 
 To test the agent's performance and system metrics in isolation without building a full frontend, this project includes a dedicated terminal testing client. 
 
@@ -124,7 +124,7 @@ Once the chatbot is running, you can chat directly with the LLM or use the follo
 * `exit` (or `quit`) - Ends the session.
 
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### 1. Health Check
 * **GET** `/api/health/`
