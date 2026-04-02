@@ -1,37 +1,37 @@
-import time
+import threading
 import numpy as np
 
 
 class MetricsStore:
-    def __init__(self):
-        self.latencies = []
-        self.similarity_scores = []
-        self.max_history = 1000
+    _instance = None
+    _lock = threading.Lock()
 
-    def add_query_metrics(self, latency, avg_similarity):
+    def __new__(cls):
+        with cls._lock:
+            if cls._instance is None:
+                cls._instance = super(MetricsStore, cls).__new__(cls)
+                cls._instance.latencies = []
+                cls._instance.similarities = []
+                cls._instance.query_norms = []
+        return cls._instance
+
+    def recordquery(self, latency, avg_sim, query_norm):
         self.latencies.append(latency)
-        self.similarity_scores.append(avg_similarity)
+        self.similarities.append(avg_sim)
+        self.query_norms.append(query_norm)
 
-        # Keep a rolling window
-        if len(self.latencies) > self.max_history:
-            self.latencies.pop(0)
-            self.similarity_scores.pop(0)
-
-    def get_percentiles(self):
+    def getstats(self):
         if not self.latencies:
-            return {"P50": 0, "P95": 0, "P99": 0}
-
+            return {"queries_executed": 0}
+        avg_norm = np.mean(self.query_norms)
         return {
-            "P50": round(np.percentile(self.latencies, 50), 4),
-            "P95": round(np.percentile(self.latencies, 95), 4),
-            "P99": round(np.percentile(self.latencies, 99), 4),
+            "queries_executed": len(self.latencies),
+            "latency_p50": round(np.percentile(self.latencies, 50), 4),
+            "avg_similarity": round(np.mean(self.similarities), 4),
+            "avg_norm": round(avg_norm, 4),
+            "drift_alert": bool(abs(avg_norm - 1.0) > 0.001)
         }
 
-    def get_avg_similarity(self):
-        if not self.similarity_scores:
-            return 0.0
-        return round(sum(self.similarity_scores) / len(self.similarity_scores), 4)
 
-
-# Global singleton
-metrics_manager = MetricsStore()
+# Instantiate it here so it remains a single shared instance across your app
+metrics = MetricsStore()

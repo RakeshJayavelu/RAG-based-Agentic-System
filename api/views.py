@@ -13,40 +13,41 @@ from rest_framework import status
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from .models import DocumentChunk
 from .graph import rag_app, model
+from .utils import metrics
 
 logging.basicConfig(level=logging.INFO, format='%(message)s')
 logger = logging.getLogger(__name__)
 
-class MetricsStore:
-    _instance = None
-    _lock = threading.Lock()
-    def __new__(cls):
-        with cls._lock:
-            if cls._instance is None:
-                cls._instance = super(MetricsStore, cls).__new__(cls)
-                cls._instance.latencies = []
-                cls._instance.similarities = []
-                cls._instance.query_norms = []
-        return cls._instance
-
-    def recordquery(self, latency, avg_sim, query_norm):
-        self.latencies.append(latency)
-        self.similarities.append(avg_sim)
-        self.query_norms.append(query_norm)
-
-    def getstats(self):
-        if not self.latencies:
-            return {"queries_executed": 0}
-        avg_norm = np.mean(self.query_norms)
-        return {
-            "queries_executed": len(self.latencies),
-            "latency_p50": round(np.percentile(self.latencies, 50), 4),
-            "avg_similarity": round(np.mean(self.similarities), 4),
-            "avg_norm": round(avg_norm, 4),
-            "drift_alert": bool(abs(avg_norm - 1.0) > 0.001)
-        }
-
-metrics = MetricsStore()
+# class MetricsStore:
+#     _instance = None
+#     _lock = threading.Lock()
+#     def __new__(cls):
+#         with cls._lock:
+#             if cls._instance is None:
+#                 cls._instance = super(MetricsStore, cls).__new__(cls)
+#                 cls._instance.latencies = []
+#                 cls._instance.similarities = []
+#                 cls._instance.query_norms = []
+#         return cls._instance
+#
+#     def recordquery(self, latency, avg_sim, query_norm):
+#         self.latencies.append(latency)
+#         self.similarities.append(avg_sim)
+#         self.query_norms.append(query_norm)
+#
+#     def getstats(self):
+#         if not self.latencies:
+#             return {"queries_executed": 0}
+#         avg_norm = np.mean(self.query_norms)
+#         return {
+#             "queries_executed": len(self.latencies),
+#             "latency_p50": round(np.percentile(self.latencies, 50), 4),
+#             "avg_similarity": round(np.mean(self.similarities), 4),
+#             "avg_norm": round(avg_norm, 4),
+#             "drift_alert": bool(abs(avg_norm - 1.0) > 0.001)
+#         }
+#
+# metrics = MetricsStore()
 
 class IngestView(APIView):
     def post(self, request):
@@ -97,18 +98,6 @@ class QueryView(APIView):
             "answer": final_state.get("answer"),
             "similarity": round(float(final_state.get("avg_similarity", 0)), 4)
         }, status=status.HTTP_200_OK)
-
-class HealthView(APIView):
-    def get(self, request):
-        health = {"status": "healthy"}
-        try:
-            with connection.cursor() as cursor:
-                cursor.execute("SELECT 1")
-            health["postgres"] = "connected"
-        except Exception:
-            health["postgres"] = "disconnected"
-            health["status"] = "degraded"
-        return Response(health)
 
 class MetricsView(APIView):
     def get(self, request):

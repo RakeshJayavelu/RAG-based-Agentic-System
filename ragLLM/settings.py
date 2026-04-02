@@ -46,11 +46,11 @@ INSTALLED_APPS = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'DB_name', 
-        'USER': 'username',   
-        'PASSWORD': 'password',
-        'HOST': 'host_ip',
-        'PORT': 'host_port',
+        'NAME': 'ragdb2',
+        'USER': 'rakeshjayavelu',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 

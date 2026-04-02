@@ -1,5 +1,7 @@
 from django.urls import path
-from .views import IngestView, QueryView, HealthView, MetricsView
+from .views import IngestView, QueryView, MetricsView
+from .health import HealthView
+from .query import QueryView
 
 urlpatterns = [
     path('ingest/', IngestView.as_view(), name='ingest'),
