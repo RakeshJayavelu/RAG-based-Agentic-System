@@ -70,7 +70,7 @@ ollama serve
 ### 7. Data Seeding (Ingest Documents):**
 Before querying the agent, you must populate the vector database with the project dataset.
 
-1.  **Download the Dataset:** [Insert Link to Your Dataset Here]
+1.  **Download the Dataset:** https://www.kaggle.com/datasets/ruchi798/100-llm-papers-to-explore?select=1909.08053.pdf
 2.  **Prepare the folder:** Extract the PDFs into a folder named `dataset` in the project root.
 3.  **Start the Django server:**
     ```bash
