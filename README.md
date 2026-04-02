@@ -1,4 +1,3 @@
-Here is the clean, professional `README.md` for your project. You can copy and paste this directly into your repository.
 
 ***
 
