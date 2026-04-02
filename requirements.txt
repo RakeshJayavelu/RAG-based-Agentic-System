@@ -1,0 +1,17 @@
+# Web Framework and API
+django>=5.0.0
+djangorestframework
+requests
+
+# Database and Vector Search
+psycopg2-binary
+pgvector
+numpy
+
+# AI and Machine Learning
+sentence-transformers
+langgraph
+langchain-text-splitters
+
+# Document Processing
+pymupdf
