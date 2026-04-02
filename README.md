@@ -72,15 +72,35 @@ ollama serve
 
 ---
 
-## 🏃‍♂️ Running the Application
+## 🏃‍♂️ Running the Application with Terminal Chatbot Client
 
-Start the Django development server:
+To test the agent's performance and system metrics in isolation without building a full frontend, this project includes a dedicated terminal testing client. 
+
+This client allows you to interact with the LLM in real-time, monitor request latency (verifying the asynchronous offloading), and track mathematical drift.
+
+**How to use the client:**
+
+You will need to run the server and the client simultaneously in two separate terminal windows.
+
+**Terminal 1 (Start the Backend):**
 ```bash
+# From the root of your project
 python manage.py runserver
 ```
-The API will be available at `http://localhost:8000/`.
 
----
+**Terminal 2 (Start the Client):**
+```bash
+# Navigate to the testing folder
+cd "terminal chatbot"
+python chatbot.py
+```
+
+**Available Client Commands:**
+Once the chatbot is running, you can chat directly with the LLM or use the following system commands:
+* `/health` - Checks the live status of the Django server, PostgreSQL database, and Ollama connection.
+* `/metrics` (or `/stats`) - Displays the P50 latency, average cosine similarity, and real-time alerts for vector normalization drift.
+* `exit` (or `quit`) - Ends the session.
+
 
 ## 📡 API Endpoints
 
