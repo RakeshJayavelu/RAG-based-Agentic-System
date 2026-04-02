@@ -28,24 +28,24 @@ Before you begin, ensure you have the following installed and running on your sy
 
 ## 🛠️ Installation & Setup
 
-**1. Clone the repository and navigate to the directory:**
+# 1. Clone the repository and navigate to the directory:**
 ```bash
 git clone https://github.com/yourusername/your-repo-name.git
 cd your-repo-name
 ```
 
-**2. Create and activate a virtual environment:**
+# 2. Create and activate a virtual environment:**
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows use: venv\Scripts\activate
 ```
 
-**3. Install the dependencies:**
+# 3. Install the dependencies:**
 ```bash
 pip install -r requirements.txt
 ```
 
-**4. Set up the Database:**
+# 4. Set up the Database:**
 Ensure your PostgreSQL server is running. Create a database (e.g., `ragdb2`) and enable the vector extension:
 ```sql
 CREATE DATABASE ragdb2;
@@ -53,13 +53,13 @@ CREATE DATABASE ragdb2;
 CREATE EXTENSION IF NOT EXISTS vector;
 ```
 
-**5. Apply Database Migrations:**
+# 5. Apply Database Migrations:**
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-**6. Start Local Dependencies:**
+# 6. Start Local Dependencies:**
 Make sure Ollama are running in the background:
 ```bash
 # Ensure Ollama has the Mistral model
@@ -67,15 +67,15 @@ ollama pull mistral
 ollama serve
 ```
 
-** 7. Data Seeding (Ingest Documents)**
+# 7. Data Seeding (Ingest Documents):**
 Before querying the agent, you must populate the vector database with the project dataset.
 
-1.  *Download the Dataset:*  https://www.kaggle.com/datasets/ruchi798/100-llm-papers-to-explore?select=1909.08053.pdf
-2.  *Prepare the folder:* Extract the PDFs into a folder named `dataset` in the project root.
-3.  *Start the Django server:* ```bash
+1.  **Download the Dataset:**  https://www.kaggle.com/datasets/ruchi798/100-llm-papers-to-explore?select=1909.08053.pdf
+2.  **Prepare the folder:** Extract the PDFs into a folder named `dataset` in the project root.
+3.  **Start the Django server:** ```bash
     python manage.py runserver
     ```
-4.  *Trigger Ingestion:* Open a new terminal and run the following command to process the PDFs:
+4.  **Trigger Ingestion:** Open a new terminal and run the following command to process the PDFs:
     ```bash
     # Mac/Linux
     curl -X POST http://localhost:8000/api/ingest/ -H "Content-Type: application/json" -d '{"directory_path": "dataset"}'
@@ -84,7 +84,7 @@ Before querying the agent, you must populate the vector database with the projec
     Invoke-RestMethod -Uri http://localhost:8000/api/ingest/ -Method Post -ContentType "application/json" -Body '{"directory_path": "dataset"}'
     ```
 
-** 8. Verify & Chat **
+# 8. Verify & Chat:**
 To verify the system is live, navigate to the chatbot folder and start a session:
 ```bash
 cd "terminal chatbot"
